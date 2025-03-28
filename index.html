@@ -22,6 +22,28 @@
             <link rel="stylesheet" href="assets/css/slick.css">
             <link rel="stylesheet" href="assets/css/nice-select.css">
             <link rel="stylesheet" href="assets/css/style.css">
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 50px;
+                }
+                #timer {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: red;
+                }
+                #generateLink {
+                    display: none;
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    font-size: 18px;
+                    background: green;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            </style>
    </head>
 
    <body>
@@ -135,15 +157,13 @@
 
     <main>
     <!-- Trending Area Start -->
-    <div class="trending-area fix">
+    <!-- <div class="trending-area fix">
         <div class="container">
             <div class="trending-main">
-                <!-- Trending Tittle -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="trending-tittle">
                             <strong>Trending now</strong>
-                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
                             <div class="trending-animated">
                                 <ul id="js-news" class="js-hidden">
                                     <li class="news-item">Top 10 Must-Try Street Foods This Week!</li>
@@ -157,7 +177,6 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
-                        <!-- Trending Top -->
                         <div class="trending-top mb-30">
                             <div class="trend-top-img">
                                 <img src="assets/img/trending/trending_top.jpg" alt="">
@@ -167,7 +186,6 @@
                                     </div>
                             </div>
                         </div>
-                        <!-- Trending Bottom -->
                         <div class="trending-bottom">
                             <div class="row">
                                 <div class="col-lg-4">
@@ -206,7 +224,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Riht content -->
                     <div class="col-lg-4">
                         <div class="trand-right-single d-flex">
                             <div class="trand-right-img">
@@ -248,8 +265,95 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+
+
+
+    <div class="trending-area fix">
+        <div class="container">
+            <div class="trending-main">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="trending-tittle">
+                            <strong>Trending now</strong>
+                            <div class="trending-animated">
+                                <ul id="js-news" class="js-hidden">
+                                    <li class="news-item">Top 10 Must-Try Street Foods This Week!</li>
+                                    <li class="news-item">Healthy Eating: 5 Quick & Nutritious Breakfast Ideas</li>
+                                    <li class="news-item">Discover Exotic Dishes From Around the World</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="trending-top mb-30">
+                            <div class="trend-top-img">
+                                <img src="assets/img/trending/trending_top.jpg" alt="">
+                                <div class="trend-top-cap">
+                                    <span>Popular Dishes</span>
+                                    <h2><a href="details.html">Explore the Best Street Food Spots Near You!</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trending-bottom">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="single-bottom mb-35">
+                                        <div class="trend-bottom-img mb-30">
+                                            <img src="assets/img/trending/trending_bottom1.jpg" alt="">
+                                        </div>
+                                        <div class="trend-bottom-cap">
+                                            <span class="color1">Healthy Eating</span>
+                                            <h4><a href="details.html">5 Superfoods to Include in Your Diet Today!</a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="single-bottom mb-35">
+                                        <div class="trend-bottom-img mb-30">
+                                            <img src="assets/img/trending/trending_bottom2.jpg" alt="">
+                                        </div>
+                                        <div class="trend-bottom-cap">
+                                            <span class="color2">Street Food</span>
+                                            <h4><a href="details.html">The Best Chaat Corners in Your City!</a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="single-bottom mb-35">
+                                        <div class="trend-bottom-img mb-30">
+                                            <img src="assets/img/trending/trending_bottom3.jpg" alt="">
+                                        </div>
+                                        <div class="trend-bottom-cap">
+                                            <span class="color3">Travels</span>
+                                            <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="timer-section">
+                            <h2>Wait for <span id="timer">10</span> seconds...</h2>
+                            <button id="generateLink" style="margin-left: 100px;">Generate Link</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Trending Area End -->
+
+
+
+    
+
+
+    
     <!--   Weekly-News start -->
     <div class="weekly-news-area pt-50">
         <div class="container">
@@ -1077,6 +1181,85 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
+
+
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const encryptedText = urlParams.get('id');
+            const ivHex = urlParams.get('iv');
+            const secretKey = "MySuperSecretKey_32Byte12345678";
+
+            let timeLeft = 10;
+            const timerElem = document.getElementById("timer");
+            const button = document.getElementById("generateLink");
+
+            const countdown = setInterval(() => {
+            timeLeft--;
+            timerElem.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                button.style.display = "block"; // Button show kare
+            }
+        }, 1000);
+
+        // ✅ AES decryption function
+        async function decryptAES(encryptedText, ivHex, secretKey) {
+            try {
+                const formattedKey = formatSecretKey(secretKey, 32);
+                const iv = new Uint8Array(ivHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+                const encryptedData = new Uint8Array(encryptedText.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+
+                const key = await crypto.subtle.importKey(
+                    "raw",
+                    formattedKey,
+                    { name: "AES-GCM" },
+                    false,
+                    ["decrypt"]
+                );
+
+                const decryptedBuffer = await crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: iv },
+                    key,
+                    encryptedData
+                );
+
+                return new TextDecoder().decode(decryptedBuffer);
+            } catch (error) {
+                console.error("Decryption Error:", error.message);
+                return null;
+            }
+        }
+
+        // ✅ Secret key formatting function
+        function formatSecretKey(secretKey, length = 32) {
+            const encoder = new TextEncoder();
+            let keyBytes = encoder.encode(secretKey);
+
+            if (keyBytes.length < length) {
+                let paddedKey = new Uint8Array(length);
+                paddedKey.set(keyBytes);
+                return paddedKey;
+            }
+            return keyBytes.slice(0, length);
+        }
+
+        // ✅ Button click event - Decrypt and redirect
+        button.addEventListener("click", async () => {
+            if (encryptedText && ivHex) {
+                // alert("insode")
+                const decryptedUrl = await decryptAES(encryptedText, ivHex, secretKey);
+                if (decryptedUrl) {
+                    // window.location.href = decryptedUrl; // ✅ Redirect to decrypted link
+                    window.open(decryptedUrl, '_blank');
+                } else {
+                    alert("Error decrypting the link!");
+                }
+            } else {
+                alert("Invalid link parameters!");
+            }
+        });
+    </script>
+
         
     </body>
 </html>
