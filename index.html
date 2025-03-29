@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+        <script src="./assets/js/securtiy.js"></script>
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -337,9 +338,9 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div id="timer-section">
+                        <div id="timer-section" style="display: none;">
                             <h2>Wait for <span id="timer">10</span> seconds...</h2>
-                            <button id="generateLink" style="margin-left: 100px;">Generate Link</button>
+                            <button id="generateLink" style="margin-left: 100px; display: none;">Generate Link</button>
                         </div>
                     </div>
                 </div>
@@ -1192,8 +1193,17 @@
             let timeLeft = 10;
             const timerElem = document.getElementById("timer");
             const button = document.getElementById("generateLink");
+            const timerSection = document.getElementById("timer-section");
 
-            const countdown = setInterval(() => {
+            
+            if (encryptedText && ivHex) {
+        timerSection.style.display = "block";
+
+        // URL cleanup (id aur iv ko hatao)
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+
+        const countdown = setInterval(() => {
             timeLeft--;
             timerElem.textContent = timeLeft;
             if (timeLeft <= 0) {
@@ -1201,6 +1211,7 @@
                 button.style.display = "block"; // Button show kare
             }
         }, 1000);
+    }
 
         // ✅ AES decryption function
         async function decryptAES(encryptedText, ivHex, secretKey) {
@@ -1259,6 +1270,62 @@
             }
         });
     </script>
+
+<!-- <script>
+    // Right-click disable
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+    // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U disable
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "F12" ||
+            (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
+            (event.ctrlKey && event.key === "U")
+        ) {
+            event.preventDefault();
+            showDangerAlert();
+        }
+    });
+
+    // Function to show a danger alert
+    function showDangerAlert() {
+        const alertBox = document.createElement("div");
+        alertBox.innerHTML = "🚨 Warning: Unauthorized Access Detected! 🚨";
+        alertBox.style.position = "fixed";
+        alertBox.style.top = "50%";
+        alertBox.style.left = "50%";
+        alertBox.style.transform = "translate(-50%, -50%)";
+        alertBox.style.background = "red";
+        alertBox.style.color = "white";
+        alertBox.style.padding = "20px";
+        alertBox.style.fontSize = "20px";
+        alertBox.style.fontWeight = "bold";
+        alertBox.style.borderRadius = "10px";
+        alertBox.style.boxShadow = "0px 0px 10px black";
+        alertBox.style.zIndex = "9999";
+        document.body.appendChild(alertBox);
+
+        setTimeout(() => {
+            window.location.href = "about:blank"; // Website se hata de
+        }, 2000);
+    }
+
+    // Detect DevTools Open
+    (function () {
+        const threshold = 160;
+
+        const detectDevTools = () => {
+            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+            if (widthThreshold || heightThreshold) {
+                showDangerAlert();
+            }
+        };
+
+        setInterval(detectDevTools, 1000);
+    })();
+</script> -->
+
 
         
     </body>
