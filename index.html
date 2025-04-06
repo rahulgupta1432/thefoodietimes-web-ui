@@ -1257,7 +1257,7 @@
         // ✅ Button click event - Decrypt and redirect
         button.addEventListener("click", async () => {
             if (encryptedText && ivHex) {
-                // alert("insode")
+                // console.log(encryptedText)
                 const decryptedUrl = await decryptAES(encryptedText, ivHex, secretKey);
                 if (decryptedUrl) {
                     // window.location.href = decryptedUrl; // ✅ Redirect to decrypted link
